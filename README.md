@@ -1,0 +1,175 @@
+# 🌊 Continual Reinforcement Learning for Adaptive OTEC Control
+
+---
+
+## 🚀 Project Overview
+
+This project explores how **Artificial Intelligence can adapt to real-world environmental changes** in energy systems.
+
+We focus on **Ocean Thermal Energy Conversion (OTEC)** — a renewable energy technology that depends heavily on ocean temperature conditions. Since sea surface temperature (SST) changes over time, designing a controller that works reliably across all conditions becomes a challenging problem.
+
+To address this, we apply **Continual Reinforcement Learning**, where an agent learns sequentially across different environmental conditions while retaining previously learned knowledge.
+
+---
+
+## 🧠 Why This Project Matters
+
+Most control systems and machine learning models assume **stable environments**.
+
+But in reality:
+
+* Ocean temperatures change seasonally
+* Climate conditions introduce noise and fluctuations
+* Systems must adapt continuously
+
+This creates a **non-stationary learning problem**, where models often suffer from:
+
+> ❗ **Catastrophic Forgetting** — learning new conditions causes the model to forget old ones
+
+This project investigates how to overcome this limitation using modern AI techniques.
+
+---
+
+## ⚙️ What I Built
+
+I designed a **continual learning pipeline** using reinforcement learning:
+
+### 🔹 Algorithms Used
+
+* Proximal Policy Optimization (**PPO**) — baseline RL algorithm
+* PPO + Elastic Weight Consolidation (**EWC**) — to reduce forgetting
+
+---
+
+### 🔹 Real-World Dataset
+
+* Used **Sea Surface Temperature (SST)** data
+* Stored in **NetCDF format** (climate data standard)
+* Created realistic ocean conditions
+
+---
+
+### 🔹 Environment Design
+
+The system is modeled as a reinforcement learning environment where:
+
+* **State:** Statistical representation of SST
+* **Action:** Control variables (flow, pressure, etc.)
+* **Reward:** Task-specific objective
+
+---
+
+## 🌍 Task Design (Core Idea)
+
+Instead of training on one condition, I created **4 distinct regimes**:
+
+| Task | Environment          | Objective          |
+| ---- | -------------------- | ------------------ |
+| T1   | High temp + stable   | Maximize power     |
+| T2   | Low temp + stable    | Minimize flow      |
+| T3   | Unstable conditions  | Maintain stability |
+| T4   | Extreme fluctuations | Robust control     |
+
+👉 Each task has **different objectives**, forcing the model to adapt.
+
+---
+
+## 🔄 Learning Setup
+
+The agent is trained **sequentially**:
+
+```text
+T1 → T2 → T3 → T4
+```
+
+This creates:
+
+* Changing environments
+* Conflicting objectives
+
+👉 Perfect setup to observe catastrophic forgetting
+
+---
+
+## 📊 Results
+
+| Task | PPO    | PPO + EWC |
+| ---- | ------ | --------- |
+| T1   | 0.253  | 0.360     |
+| T2   | -0.058 | 0.021     |
+| T3   | -0.074 | 0.042     |
+| T4   | -0.442 | -0.422    |
+
+### 🔍 Key Insight
+
+* PPO forgets earlier tasks
+* PPO + EWC **retains knowledge and adapts better**
+
+👉 Demonstrates effective mitigation of catastrophic forgetting
+
+---
+
+## 📈 Visualization
+
+![Results](results/final_results_real.png)
+
+---
+
+## 🧠 Key Concepts Demonstrated
+
+* Continual Learning
+* Catastrophic Forgetting
+* Stability–Plasticity Trade-off
+* Reinforcement Learning in Non-Stationary Environments
+
+---
+
+## 🛠 How to Run
+
+```bash
+pip install -r requirements.txt
+python experiments/train_ppo_sequential.py
+python experiments/train_ppo_ewc.py
+python experiments/plot_results_from_file.py
+```
+
+---
+
+## 📁 Project Structure
+
+```
+otec-continual-rl/
+├── src/              # Core environment & data processing
+├── experiments/      # Training and evaluation scripts
+├── results/          # Output results and plots
+├── data/             # SST datasets (not included)
+```
+
+---
+
+## 🚀 What I Learned
+
+This project helped me understand:
+
+* How AI systems behave in **dynamic real-world environments**
+* Why **model memory and retention** are critical
+* How to design **conflicting tasks to test learning robustness**
+* Practical implementation of **continual reinforcement learning**
+
+---
+
+## 👤 Author
+
+**Vamsi Krishna Gondu**
+AI & Machine Learning Enthusiast
+
+B.Tech Computer Science and Engineering, Specialized in Artificial Intelligence & Intelligent Process Automation
+
+KL University, India
+
+
+
+---
+## License
+
+This project is released under the MIT License, allowing open use and modification with proper attribution.
