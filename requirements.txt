@@ -1,0 +1,8 @@
+numpy
+matplotlib
+torch
+stable-baselines3
+gym
+shimmy
+xarray
+netCDF4
