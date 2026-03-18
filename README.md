@@ -56,7 +56,7 @@ The proposed system follows a structured continual reinforcement learning pipeli
 
 ### 🔹 Overall Workflow
 
-![Methodology](methodology_structure.png)
+![Methodology](results/methodology_structure.png)
 
 ---
 
