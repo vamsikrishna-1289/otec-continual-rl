@@ -48,6 +48,102 @@ I designed a **continual learning pipeline** using reinforcement learning:
 * Created realistic ocean conditions
 
 ---
+---
+
+## 🧪 Methodology
+
+The proposed system follows a structured continual reinforcement learning pipeline designed to model real-world non-stationary behavior in Ocean Thermal Energy Conversion (OTEC) systems.
+
+### 🔹 Overall Workflow
+
+![Methodology](methodology_structure.png)
+
+---
+
+### 🔍 Explanation of the Pipeline
+
+#### 1. Multi-Regime Environment Design
+
+The environment is divided into four distinct thermal regimes, each representing different operating conditions:
+
+* **T1:** High temperature, stable → baseline learning
+* **T2:** Low temperature, stable → shifted thermal profile
+* **T3:** Unstable conditions → dynamic variations
+* **T4:** Extreme fluctuations → noisy and chaotic behavior
+
+Each regime behaves as a **distinct Markov Decision Process (MDP)**, forcing the agent to adapt.
+
+---
+
+#### 2. Task-Specific Reward Engineering
+
+To intentionally create learning conflicts and expose catastrophic forgetting:
+
+* **T1 → Maximize power output**
+* **T2 → Minimize flow rate**
+* **T3 → Maintain operational stability**
+* **T4 → Penalize noise and fluctuations**
+
+This ensures that a single policy cannot perform optimally across all tasks.
+
+---
+
+#### 3. Sequential Learning Setup
+
+The agent is trained sequentially across tasks:
+
+T1 → T2 → T3 → T4
+
+This setup mimics real-world environments where conditions evolve over time, rather than remaining static.
+
+---
+
+#### 4. Catastrophic Forgetting in PPO
+
+When using standard PPO:
+
+* The model adapts to new tasks effectively
+* However, it overwrites previously learned knowledge
+
+This leads to a **decline in performance on earlier tasks**, clearly demonstrating catastrophic forgetting.
+
+---
+
+#### 5. EWC-Based Knowledge Retention
+
+To address forgetting, Elastic Weight Consolidation (EWC) is introduced:
+
+* Identifies important parameters from previous tasks
+* Applies a penalty to prevent large updates to those parameters
+* Preserves previously learned knowledge
+
+This introduces a **stability–plasticity trade-off**, balancing:
+
+* Learning new tasks (**plasticity**)
+* Retaining old knowledge (**stability**)
+
+---
+
+#### 6. Evaluation Strategy
+
+After completing training:
+
+* The model is evaluated on all tasks (T1–T4)
+* Performance is compared between:
+
+  * PPO (baseline)
+  * PPO + EWC (proposed method)
+
+---
+
+### 🎯 Key Outcome
+
+* PPO shows significant performance degradation on earlier tasks
+* PPO + EWC maintains more consistent performance across all regimes
+
+👉 Demonstrating effective mitigation of catastrophic forgetting in non-stationary environments
+
+---
 
 ### 🔹 Environment Design
 
