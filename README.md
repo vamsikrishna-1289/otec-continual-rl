@@ -257,7 +257,8 @@ This project helped me understand:
 ## 👤 Author
 
 **Vamsi Krishna Gondu**
-AI & Machine Learning Enthusiast
+
+AI Research Aspirant
 
 B.Tech Computer Science and Engineering, Specialized in Artificial Intelligence & Intelligent Process Automation
 
